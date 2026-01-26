@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "GFG to GitHub",
+  "version": "0.1",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+  "https://www.geeksforgeeks.org/*",
+  "https://practice.geeksforgeeks.org/*",
+  "https://api.github.com/*"
+],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.geeksforgeeks.org/problems/*",
+        "https://practice.geeksforgeeks.org/*"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+  "service_worker": "background.js"
+}
+
+
+}

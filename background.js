@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "GFG_SUBMISSION_DATA") {
     latestCode = msg.payload.code;
     isAccepted = msg.payload.accepted;
-    console.log("📦 Stored code:", latestCode.length, "Accepted:", isAccepted);
+    console.log("Stored code:", latestCode.length, "Accepted:", isAccepted);
   }
 
   if (msg.type === "GET_DATA") {
@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 async function pushToGitHub({ title, code }) {
   if (!isAccepted) {
-    console.log("❌ Not accepted, skipping push");
+    console.log(" Not accepted, skipping push");
     return;
   }
 
@@ -54,8 +54,8 @@ async function pushToGitHub({ title, code }) {
       throw new Error(data.message || "GitHub API error");
     }
 
-    console.log("✅ Successfully pushed to GitHub:", path);
+    console.log(" Successfully pushed to GitHub:", path);
   } catch (err) {
-    console.error("🔥 GitHub push failed:", err.message);
+    console.error(" GitHub push failed:", err.message);
   }
 }

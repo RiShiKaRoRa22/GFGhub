@@ -29,7 +29,7 @@ function sendResult(accepted) {
 
   chrome.runtime.sendMessage({
     type: "GFG_SUBMISSION_DATA",
-    payload: { code, accepted }
+    payload: {title: document.querySelector("h3")?.innerText || "GFG Problem" ,code, accepted }
   });
 }
 

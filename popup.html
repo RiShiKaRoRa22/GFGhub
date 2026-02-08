@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      body {
-        font-family: Arial;
-        padding: 10px;
-        width: 200px;
-      }
-      button {
-        width: 100%;
-        padding: 8px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <h3>GFG → GitHub</h3>
-    <button id="push">Push to GitHub </button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GFG → GitHub</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>GFG → GitHub</h2>
 
+    <div class="card">
+      <p class="label">Problem</p>
+      <p id="title" class="value">—</p>
 
-    <script src="popup.js"></script>
-  </body>
+      <span id="status" class="status pending">Checking…</span>
+    </div>
+
+    <div class="card">
+      <p class="label">GitHub Token</p>
+      <input
+        type="password"
+        id="token"
+        placeholder="ghp_********"
+      />
+      <button id="saveToken" class="secondary">Save Token</button>
+    </div>
+
+    <button id="push" class="primary" disabled>
+      Push to GitHub 🚀
+    </button>
+
+    <p id="msg" class="message"></p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
 </html>

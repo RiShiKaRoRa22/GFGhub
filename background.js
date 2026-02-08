@@ -1,18 +1,27 @@
 let latestCode = "";
 let isAccepted = false;
-
+let latestTitle=";"
 const GITHUB_TOKEN = process.env.GITHUB_PAT;
 const REPO = "RiShiKaRoRa22/TEST_gfghub"; // correct
+
+function sanitizeName(name) {
+  return name
+    .trim()
+    .replace(/[^a-zA-Z0-9 ]/g, "") // remove special chars
+    .replace(/\s+/g, "_");         // spaces → underscores
+}
+
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "GFG_SUBMISSION_DATA") {
     latestCode = msg.payload.code;
     isAccepted = msg.payload.accepted;
+    latestTitle=msg.payload.title;
     console.log("Stored code:", latestCode.length, "Accepted:", isAccepted);
   }
 
   if (msg.type === "GET_DATA") {
-    sendResponse({ code: latestCode, accepted: isAccepted });
+    sendResponse({ code: latestCode, accepted: isAccepted , title:latestTitle});
   }
 
   if (msg.type === "PUSH_TO_GITHUB") {
@@ -27,10 +36,11 @@ async function pushToGitHub({ title, code }) {
   }
 
   try {
-    const fileName =
-      title.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, "_") + ".java";
+    const folderName = sanitizeName(title);
+    const fileName = `solution.java`; // or "solution.java"
 
-    const path = `GFG/${fileName}`;
+    const path = `${folderName}/${fileName}`;
+
     const content = btoa(unescape(encodeURIComponent(code)));
 
     const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
